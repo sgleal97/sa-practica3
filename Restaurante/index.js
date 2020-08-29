@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
@@ -6,7 +6,11 @@ const axios = require("axios");
 var body_parser = require('body-parser').json();
 
 // middlewares
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
+
+app.get('/', function(req, res) {
+    res.json({"Title:":"Restaurante"});
+});
 
 //Recibir pedido
 app.post('/recibirPedido', body_parser, function(req, res) {
@@ -19,16 +23,14 @@ app.post('/recibirPedido', body_parser, function(req, res) {
 app.get('/infoPedido/:order', body_parser, function(req, res) {
     var order = req.params.order
     var descripcion = "Se recibio orden:"+order +" para saber su estado"
-    //axios.post('http://localhost:3003/log',{'descripcion':descripcion})
     var state = Math.floor(Math.random() * (3-1)+1)
     if(state==3){
-        descripcion = "Orden:"+order+"  enviada"
+        descripcion = "Enviada"
     }else if(state == 2){
-        descripcion = "Orden:"+order+" cancelada"
+        descripcion = "Cancelada"
     }else{
-        descripcion = "Orden:"+order+" en preparacion"
+        descripcion = "Preparando"
     }
-    //axios.post('http://localhost:3003/log',{'descripcion':descripcion})
     res.send(descripcion)
 });
 

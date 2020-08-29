@@ -2,11 +2,11 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const axios = require("axios");
+const axios = require("axios")
 var body_parser = require('body-parser').json();
 
 // middlewares
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
 app.get('/', function(req, res) {
     res.json({"Title:":"Cliente"});
@@ -24,7 +24,6 @@ app.get('/orden', function(req, res){
 app.get('/estadoRestaurante', body_parser, function(req, res) {
     var order = req.body.id
     var descripcion = "Se desea saber el estado de orden:"+order
-    //axios.post('http://localhost:3003/log',{'descripcion':descripcion})
     axios.get('http://localhost:3001/infoPedido/'+order)
         .then(function(response){
             res.send(response['data'])
