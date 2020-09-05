@@ -5,7 +5,7 @@ const axios = require("axios");
 const { response } = require('express');
 var body_parser = require('body-parser').json();
 
-middlewares
+//middlewares
 app.use(morgan('dev'));
 
 app.get('/', function(req, res) {
@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
 app.get('/orden', function(req, res){
     var orden = Math.floor(Math.random() * 100)
     var descripcion = "Cliente, Nueva orden: "+ orden
-    axios.post('http://localhost:3001/recibirPedido',{'id':orden})
+    axios.post('http://localhost:3003/Cliente/recibirPedido',{'id':orden})
     res.json({'id':orden})
 })
 
@@ -24,7 +24,7 @@ app.get('/orden', function(req, res){
 app.get('/estadoRestaurante', body_parser, function(req, res) {
     var order = req.body.id
     var descripcion = "Cliente, Estado del pedido:"+order
-    axios.get('http://localhost:3001/infoPedido/'+ order)
+    axios.get('http://localhost:3003/Cliente/infoPedido/'+ order)
         .then(function(response){
             res.send(response['data'])
         })
@@ -39,11 +39,13 @@ app.get('/estadoRestaurante', body_parser, function(req, res) {
 app.get('/estadoRepartidor', function(req, res) {
     var order = req.body.id
     var descripcion = "Cliente, Estado del pedido"
-    axios.get('http://localhost:3002/informarPedido/'+order)
+    axios.get('http://localhost:3003/Cliente/informarPedido/'+order)
     .then(function(response){
         res.send(response['data'])
     });
 });
+
+//
 
 //starting the server
 app.listen(3000, () => {

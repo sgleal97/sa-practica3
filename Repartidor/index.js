@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const axios = require("axios");
 var body_parser = require('body-parser').json();
 
-middlewares
+//middlewares
 app.use(morgan('dev'));
 
 app.get('/', function(req, res) {
@@ -35,7 +35,6 @@ app.get('/informarPedido/:order',body_parser, function(req, res){
 app.post('/ordenEntregada',body_parser,function(req,res){
     var order = req.body.id
     var descripcion = "orden entragada "+order
-    //axios.post('http://localhost:3003/log',{'descripcion':descripcion})
     res.send("OK")
 });
 
